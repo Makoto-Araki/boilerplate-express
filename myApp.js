@@ -46,8 +46,56 @@ app.get('/json', (req, res) => {
 */
 
 /* Lesson07 ミドルウェア */
+const Func1 = (req, res, next) => {
+  req.key1 = req.protocol;
+  console.log('Func1');
+  next();
+}
 
+const Func2 = (req, res, next) => {
+  req.key2 = req.method;
+  console.log('Func2');
+  next();
+}
+  
+const Func3 = (req, res, next) => {
+  req.key3 = req.path;
+  console.log('Func3');
+  next();
+}
 
+const Func4 = (req, res, next) => {
+  req.key4 = req.hostname;
+  console.log('Func4');
+  next();
+}
+
+const Func5 = (req, res, next) => {
+  req.key5 = req.ip;
+  console.log('Func5');
+  next();
+}
+
+app.use(express.static(__dirname + '/'));
+app.use(Func1);  // パス(/) + パス(/json) 両方で実行
+app.use(Func2);
+app.use(Func3);
+app.use(Func4);
+app.use(Func5);
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html')
+})
+
+app.get('/json', (req, res) => {
+  res.json({
+    "key1": req.key1,
+    "key2": req.key2,
+    "key3": req.key3,
+    "key4": req.key4,
+    "key5": req.key5
+  });
+});
 
 
 
