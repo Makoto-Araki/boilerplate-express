@@ -45,7 +45,7 @@ app.get('/json', (req, res) => {
 })
 */
 
-/* Lesson07 ミドルウェア */
+/* Lesson07 ミドルウェア
 const Func1 = (req, res, next) => {
   req.key1 = req.protocol;
   console.log('Func1');
@@ -77,8 +77,8 @@ const Func5 = (req, res, next) => {
 }
 
 app.use(express.static(__dirname + '/'));
-app.use(Func1);  // パス(/) + パス(/json) 両方で実行
-app.use(Func2);
+app.use(Func1);  // パス(/) + パス(/json) 両方でコール
+app.use(Func2);  // 特定パス(/json)のみ実行は app.use('/json', Func2) と記述
 app.use(Func3);
 app.use(Func4);
 app.use(Func5);
@@ -96,12 +96,39 @@ app.get('/json', (req, res) => {
     "key5": req.key5
   });
 });
+*/
 
-
-
-
-
-
+/* Lesson08 ミドルウェアをルーティング内に記述、同時にチェーン構成
+app.get('/json', (req, res, next) => {
+  req.key1 = req.protocol;
+  console.log('Func1');
+  next();
+}, (req, res, next) => {
+  req.key2 = req.method;
+  console.log('Func2');
+  next();
+}, (req, res, next) => {
+  req.key3 = req.path;
+  console.log('Func3');
+  next();
+}, (req, res, next) => {
+  req.key4 = req.hostname;
+  console.log('Func4');
+  next();
+}, (req, res, next) => {
+  req.key5 = req.ip;
+  console.log('Func5');
+  next();
+}, (req, res) => {
+  res.json({
+    "key1": req.key1,
+    "key2": req.key2,
+    "key3": req.key3,
+    "key4": req.key4,
+    "key5": req.key5,
+  });
+});
+*/
 
 
 
