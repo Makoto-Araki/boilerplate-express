@@ -130,9 +130,49 @@ app.get('/json', (req, res, next) => {
 });
 */
 
+/* Lesson09 API構築 - ルートパラメータ
+const database = [
+  {
+    user: 'AAA',
+    name: 'Alpha',
+    mail: 'Alpha@google.com',
+  },
+  {
+    user: 'BBB',
+    name: 'Bravo',
+    mail: 'Bravo@google.com',
+  },
+  {
+    user: 'DDD',
+    name: 'Delta',
+    mail: 'Delta@google.com',
+  },
+];
 
+const search = (arr, user) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]['user'] === user) {
+      return i;
+    }
+  }
+  return -1;
+}
 
-
+app.get('/user/:user', (req, res) => {
+  idx = search(database, req.params.user);
+  if (idx !== -1) {
+    res.json({
+      'message': 'Data is found',
+      'name': database[idx].name,
+      'mail': database[idx].mail,
+    });
+  } else {
+    res.json({
+      'message': 'Data is not found'
+    });
+  }
+});
+*/
 
 
  module.exports = app;
