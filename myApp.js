@@ -158,6 +158,7 @@ const search = (arr, user) => {
   return -1;
 }
 
+// コール => https://../user/AAA
 app.get('/user/:user', (req, res) => {
   idx = search(database, req.params.user);
   if (idx !== -1) {
@@ -174,5 +175,49 @@ app.get('/user/:user', (req, res) => {
 });
 */
 
+/* Lesson10 API構築 - クエリパラメータ
+const database = [
+  {
+    user: 'AAA',
+    name: 'Alpha',
+    mail: 'Alpha@google.com',
+  },
+  {
+    user: 'BBB',
+    name: 'Bravo',
+    mail: 'Bravo@google.com',
+  },
+  {
+    user: 'DDD',
+    name: 'Delta',
+    mail: 'Delta@google.com',
+  },
+];
 
- module.exports = app;
+const search = (arr, user) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]['user'] === user) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// コール => https://../?user=AAA
+app.get('/', (req, res) => {
+  idx = search(database, req.query.user);
+  if (idx !== -1) {
+    res.json({
+      'message': 'Data is found',
+      'name': database[idx].name,
+      'mail': database[idx].mail,
+    });
+  } else {
+    res.json({
+      'message': 'Data is not found'
+    });
+  }
+});
+*/
+
+module.exports = app;
