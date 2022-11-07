@@ -77,7 +77,7 @@ const Func5 = (req, res, next) => {
 }
 
 app.use(express.static(__dirname + '/'));
-app.use(Func1);  // パス(/) + パス(/json) 両方でコール
+app.use(Func1);  // ミドルウェアのマウント => パス(/) + パス(/json) 両方でコール
 app.use(Func2);  // 特定パス(/json)のみ実行は app.use('/json', Func2) と記述
 app.use(Func3);
 app.use(Func4);
@@ -217,6 +217,18 @@ app.get('/', (req, res) => {
       'message': 'Data is not found'
     });
   }
+});
+*/
+
+/* Lesson11 送信内容(POST時)のパーサー処理
+let parser = require('body-parser');
+app.use(parser.urlencoded({ extended: false })); // パーサーの拡張オプション使用しない
+
+// コール => curl -X POST -d 'user=AAA' https://../
+app.post('/', function(req, res) {
+  res.json({
+    user: req.body.user,
+  });
 });
 */
 
