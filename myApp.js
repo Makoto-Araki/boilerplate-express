@@ -220,7 +220,7 @@ app.get('/', (req, res) => {
 });
 */
 
-/* Lesson11 送信内容(POST時)のパーサー処理
+//* Lesson11 送信内容(POST時)のパーサー処理
 let parser = require('body-parser');
 app.use(parser.urlencoded({ extended: false })); // パーサーの拡張オプション使用しない
 
@@ -230,6 +230,6 @@ app.post('/', function(req, res) {
     user: req.body.user,
   });
 });
-*/
+//*/
 
 module.exports = app;
